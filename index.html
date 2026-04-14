@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grey Tusk Studio | Handcrafted Wood & Resin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --bg-accent: #1a1a1a;
+  --text-primary: #f0ece4;
+  --text-secondary: #9a9590;
+  --text-muted: #5a5550;
+  --accent: #2d8a6e;
+  --accent-light: #3aab8a;
+  --accent-glow: rgba(45, 138, 110, 0.15);
+  --gold: #c4a265;
+  --gold-light: #d4b87a;
+  --border: rgba(255,255,255,0.06);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+/* ── Navigation ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.25rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s var(--transition);
+  background: transparent;
+}
+.nav.scrolled {
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.8rem 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.75rem;
+  text-decoration: none; color: var(--text-primary);
+}
+.nav-logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  /* PNG has a light background — blend-mode makes it transparent on dark surfaces */
+  mix-blend-mode: screen;
+}
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 2.5rem; align-items: center; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text-secondary);
+  font-size: 0.8rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.3s var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: transparent !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--gold) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  cursor: pointer;
+  transition: all 0.3s !important;
+}
+.nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--bg-primary) !important;
+}
+.nav-cta::after { display: none !important; }
+
+/* Mobile menu */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.menu-toggle span {
+  display: block; width: 24px; height: 1.5px;
+  background: var(--text-primary); margin: 6px 0;
+  transition: all 0.3s;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: var(--bg-primary);
+}
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(139,90,43,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(139,90,43,0.05) 0%, transparent 50%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, var(--bg-primary) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 800px; padding: 0 2rem;
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(196,162,101,0.25);
+  background: rgba(196,162,101,0.05);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300; line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.hero h1 em {
+  font-style: italic; font-weight: 400;
+  color: var(--gold);
+}
+.hero-sub {
+  font-size: 1.05rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.7;
+  max-width: 520px; margin: 0 auto 2.5rem;
+}
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 1rem 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.4s var(--transition);
+  border: none;
+}
+.btn-primary {
+  background: var(--gold); color: var(--bg-primary);
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+
+.scroll-indicator {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.scroll-indicator span {
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.scroll-line {
+  width: 1px; height: 40px; background: var(--border);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0;
+  width: 100%; height: 100%; background: var(--gold);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+@keyframes scrollDown { 0% { top: -100%; } 50% { top: 100%; } 100% { top: 100%; } }
+
+/* ── Section Basics ── */
+section { padding: 7rem 3rem; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-label {
+  display: inline-block;
+  font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300; line-height: 1.2;
+}
+.section-desc {
+  font-size: 0.95rem; color: var(--text-secondary);
+  font-weight: 300; max-width: 560px; margin: 1.25rem auto 0;
+  line-height: 1.7;
+}
+.divider {
+  width: 40px; height: 1px; background: var(--gold);
+  margin: 1.5rem auto 0; opacity: 0.5;
+}
+
+/* ── Featured Products ── */
+.featured { background: var(--bg-primary); }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.product-card {
+  position: relative; overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: all 0.5s var(--transition);
+  cursor: pointer;
+}
+.product-card:hover { border-color: rgba(196,162,101,0.2); transform: translateY(-4px); }
+.product-card:first-child { grid-column: span 2; grid-row: span 2; }
+.product-img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.product-card:first-child .product-img { aspect-ratio: auto; height: 100%; min-height: 500px; }
+.product-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+
+/* ── Real product images ── */
+.img-river {
+  background-image: url('images/river-board-2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.img-cutting {
+  background-image: url('images/IMG_1969.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+.img-charcuterie {
+  background-image: url('images/IMG_1738.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.product-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(10,10,10,0.85) 0%, transparent 50%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 2rem; opacity: 0;
+  transition: opacity 0.4s var(--transition);
+}
+.product-card:hover .product-overlay { opacity: 1; }
+.product-info {
+  padding: 1.25rem 1.5rem;
+}
+.product-category {
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.4rem;
+}
+.product-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 400;
+}
+.product-price {
+  font-size: 0.85rem; color: var(--text-secondary);
+  margin-top: 0.3rem;
+}
+.product-tag {
+  display: inline-block; margin-top: 0.5rem;
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+}
+
+/* ── Process / About ── */
+.about { background: var(--bg-secondary); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; max-width: 1100px; margin: 0 auto;
+  align-items: center;
+}
+.about-visual {
+  position: relative; aspect-ratio: 3/4;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.about-visual-inner {
+  width: 100%; height: 100%;
+  background-image: url('images/IMG_1797.jpeg');
+  background-size: cover;
+  background-position: center;
+  display: flex; align-items: center; justify-content: center;
+}
+.about-visual-inner::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 100%);
+}
+.about-visual-text {
+  display: none;
+}
+.about-content {}
+.about-label {
+  font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+}
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 300; line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.about-text {
+  font-size: 0.92rem; color: var(--text-secondary);
+  line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300;
+}
+.about-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+  padding-top: 2.5rem; border-top: 1px solid var(--border);
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.2rem; font-weight: 300; color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.4rem;
+}
+
+/* ── Gallery ── */
+.gallery { background: var(--bg-primary); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.75rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.gallery-item {
+  position: relative; overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.4s var(--transition);
+}
+.gallery-item:hover { border-color: rgba(196,162,101,0.2); }
+.gallery-item:nth-child(1) { grid-column: span 2; }
+.gallery-item:nth-child(4) { grid-column: span 2; }
+.gallery-img {
+  width: 100%; height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+.gallery-item:nth-child(1) .gallery-img { height: 360px; }
+.gallery-item:nth-child(4) .gallery-img { height: 360px; }
+
+/* Gallery images — real photos */
+.gi-1 {
+  background-image: url('images/river-board-2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.gi-2 {
+  background-image: url('images/IMG_1741.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+.gi-3 {
+  background-image: url('images/IMG_1856 2.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+.gi-4 {
+  background-image: url('images/IMG_1683.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+.gi-5 {
+  background-image: url('images/IMG_1857.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+.gi-6 {
+  background-image: url('images/IMG_1858.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Gallery video row */
+.gallery-video-row {
+  max-width: 1200px; margin: 0.75rem auto 0;
+}
+.gallery-video-item {
+  position: relative; overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: border-color 0.4s var(--transition);
+}
+.gallery-video-item:hover { border-color: rgba(196,162,101,0.2); }
+.gallery-video {
+  width: 100%; height: 480px;
+  object-fit: cover;
+  display: block;
+}
+.gallery-video-item .gallery-item-label { opacity: 0; }
+.gallery-video-item:hover .gallery-item-label { opacity: 1; }
+
+.gallery-item-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.25rem;
+  background: linear-gradient(0deg, rgba(10,10,10,0.9) 0%, transparent 100%);
+  opacity: 0; transition: opacity 0.3s;
+  font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.gallery-item:hover .gallery-item-label { opacity: 1; }
+
+/* ── Process Steps ── */
+.process { background: var(--bg-secondary); }
+.process-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; max-width: 1100px; margin: 0 auto;
+}
+.process-step {
+  text-align: center; padding: 2rem 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: all 0.4s var(--transition);
+  position: relative;
+}
+.process-step:hover { border-color: rgba(196,162,101,0.2); transform: translateY(-3px); }
+.process-num {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 300;
+  color: rgba(196,162,101,0.15); line-height: 1;
+  margin-bottom: 1rem;
+}
+.process-step h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.process-step p {
+  font-size: 0.82rem; color: var(--text-secondary);
+  line-height: 1.7; font-weight: 300;
+}
+
+/* ── Testimonials ── */
+.testimonials { background: var(--bg-primary); }
+.testimonial-container {
+  max-width: 700px; margin: 0 auto; text-align: center;
+}
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 300;
+  line-height: 1.6; font-style: italic;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.testimonial-quote::before {
+  content: '\201C';
+  font-size: 5rem; color: rgba(196,162,101,0.15);
+  position: absolute; top: -2rem; left: -1.5rem;
+  font-style: normal; line-height: 1;
+}
+.testimonial-author {
+  font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold);
+}
+.testimonial-dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 2rem; }
+.testimonial-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text-muted); cursor: pointer;
+  transition: all 0.3s;
+}
+.testimonial-dot.active { background: var(--gold); }
+
+/* ── Shop ── */
+.shop { background: var(--bg-secondary); }
+.shop-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+}
+.shop-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all 0.4s var(--transition);
+  cursor: pointer;
+}
+.shop-card:hover { border-color: rgba(196,162,101,0.2); transform: translateY(-3px); }
+.shop-card-img {
+  width: 100%; height: 320px;
+  background-size: cover;
+  background-position: center;
+  position: relative; overflow: hidden;
+}
+.shop-card-body { padding: 1.5rem; }
+.shop-card-cat {
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.3rem;
+}
+.shop-card-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 400; margin-bottom: 0.5rem;
+}
+.shop-card-desc {
+  font-size: 0.82rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.6; margin-bottom: 1rem;
+}
+.shop-card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.shop-card-price {
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 400; color: var(--text-primary);
+}
+.shop-card-btn {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--gold); color: var(--gold);
+  background: transparent; cursor: pointer;
+  transition: all 0.3s;
+}
+.shop-card-btn:hover { background: var(--gold); color: var(--bg-primary); }
+
+/* ── Custom Order CTA ── */
+.custom-cta {
+  background: var(--bg-primary);
+  position: relative; overflow: hidden;
+}
+.custom-cta-inner {
+  max-width: 900px; margin: 0 auto;
+  text-align: center; position: relative; z-index: 2;
+  padding: 4rem 2rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(196,162,101,0.03) 0%, transparent 50%, rgba(45,138,110,0.03) 100%);
+}
+.custom-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300; margin-bottom: 1rem;
+}
+.custom-cta p {
+  font-size: 0.95rem; color: var(--text-secondary);
+  max-width: 500px; margin: 0 auto 2rem;
+  line-height: 1.7; font-weight: 300;
+}
+.slab-preview {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem; margin-top: 2.5rem;
+}
+.slab-preview-item {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--border);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.slab-preview-item:hover { opacity: 1; }
+.slab-caption {
+  font-size: 0.65rem !important; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text-muted) !important;
+  margin-top: 1rem !important; margin-bottom: 0 !important;
+  max-width: none !important;
+}
+
+/* ── Contact ── */
+.contact { background: var(--bg-secondary); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; max-width: 1100px; margin: 0 auto;
+}
+.contact-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 300;
+  margin-bottom: 1rem;
+}
+.contact-info p {
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 2rem; font-weight: 300;
+}
+.contact-detail {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.contact-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+  color: var(--gold); flex-shrink: 0;
+}
+.contact-detail-text span {
+  display: block; font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.contact-detail-text a, .contact-detail-text p {
+  font-size: 0.9rem; color: var(--text-primary);
+  text-decoration: none; margin: 0;
+}
+.contact-social {
+  display: flex; gap: 1rem; margin-top: 2rem;
+}
+.social-link {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 0.75rem; letter-spacing: 0.05em;
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: flex; gap: 1.25rem; }
+.form-group { flex: 1; display: flex; flex-direction: column; }
+.form-group label {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.5rem;
+}
+.form-group input, .form-group textarea, .form-group select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  transition: border-color 0.3s;
+  outline: none;
+  -webkit-appearance: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--gold);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-group select { cursor: pointer; }
+.form-group select option { background: var(--bg-card); }
+.form-submit {
+  align-self: flex-start;
+  padding: 1rem 3rem;
+  background: var(--gold); color: var(--bg-primary);
+  border: none; cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  transition: all 0.3s;
+}
+.form-submit:hover { background: var(--gold-light); }
+
+/* ── Footer ── */
+.footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  padding: 4rem 3rem 2rem;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; max-width: 1200px; margin: 0 auto;
+}
+.footer-brand p {
+  font-size: 0.85rem; color: var(--text-secondary);
+  line-height: 1.7; margin-top: 1rem; max-width: 300px;
+  font-weight: 300;
+}
+.footer-col h4 {
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.25rem;
+}
+.footer-col a {
+  display: block; font-size: 0.85rem; color: var(--text-secondary);
+  text-decoration: none; margin-bottom: 0.75rem;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--text-primary); }
+.footer-bottom {
+  max-width: 1200px; margin: 3rem auto 0;
+  padding-top: 2rem; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p {
+  font-size: 0.75rem; color: var(--text-muted);
+}
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a {
+  font-size: 0.75rem; color: var(--text-muted);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-bottom-links a:hover { color: var(--text-secondary); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .product-grid { grid-template-columns: 1fr 1fr; }
+  .product-card:first-child { grid-column: span 2; grid-row: span 1; }
+  .product-card:first-child .product-img { min-height: 350px; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:nth-child(1), .gallery-item:nth-child(4) { grid-column: span 1; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 5rem 1.5rem; }
+  .nav { padding: 1rem 1.5rem; }
+  .nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(20px);
+    justify-content: center; align-items: center;
+    gap: 2rem; z-index: 999;
+  }
+  .nav-links.open a { font-size: 1.2rem; }
+
+  .product-grid { grid-template-columns: 1fr; }
+  .product-card:first-child { grid-column: span 1; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-visual { aspect-ratio: 16/9; }
+  .shop-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { flex-direction: column; }
+  .process-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.5rem; }
+}
+
+/* ── How to Commission ── */
+.commission { background: var(--bg-primary); }
+.commission-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; max-width: 1100px; margin: 0 auto;
+}
+.commission-step {
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: all 0.4s var(--transition);
+}
+.commission-step:hover { border-color: rgba(196,162,101,0.2); transform: translateY(-3px); }
+.commission-num {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 300;
+  color: var(--gold); opacity: 0.3;
+  line-height: 1; margin-bottom: 1rem;
+}
+.commission-step h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.commission-step p {
+  font-size: 0.82rem; color: var(--text-secondary);
+  line-height: 1.7; font-weight: 300;
+}
+
+/* ── FAQ ── */
+.faq { background: var(--bg-secondary); }
+.faq-grid {
+  max-width: 800px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 0;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-question {
+  width: 100%; background: none; border: none;
+  color: var(--text-primary); cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 400;
+  text-align: left; gap: 1rem;
+  transition: color 0.3s;
+}
+.faq-question:hover { color: var(--gold); }
+.faq-icon {
+  font-size: 1.2rem; color: var(--gold);
+  flex-shrink: 0; transition: transform 0.3s;
+  font-family: var(--font-body); font-weight: 300;
+}
+.faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s var(--transition), padding 0.3s;
+}
+.faq-answer.open { max-height: 300px; padding-bottom: 1.25rem; }
+.faq-answer p {
+  font-size: 0.88rem; color: var(--text-secondary);
+  line-height: 1.8; font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+  .commission-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .commission-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeInUp 0.8s var(--transition) forwards; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <img src="images/GTSLogo.png" alt="Grey Tusk Studio">
+    <span class="nav-logo-text">Grey Tusk Studio</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#featured">Portfolio</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#commission">How to Order</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Commission a Piece</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Handcrafted in the USA</div>
+    <h1>Where Wood Meets <em>Art</em></h1>
+    <p class="hero-sub">One-of-a-kind cutting boards, charcuterie boards, and epoxy river pieces — each crafted by hand from responsibly sourced hardwoods.</p>
+    <div class="hero-buttons">
+      <a href="#featured" class="btn btn-primary">Explore the Collection</a>
+      <a href="#contact" class="btn btn-outline">Commission a Piece</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── Featured Products ── -->
+<section class="featured" id="featured">
+  <div class="section-header">
+    <span class="section-label">The Collection</span>
+    <h2 class="section-title">Featured Pieces</h2>
+    <p class="section-desc">Each piece tells its own story through natural grain patterns, hand-selected wood, and meticulous craftsmanship.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder img-river"></div>
+      </div>
+      <div class="product-overlay">
+        <span class="product-tag">One of a kind</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Epoxy River</div>
+        <div class="product-name">Walnut & Emerald Resin Board</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder img-cutting"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Cutting Board</div>
+        <div class="product-name">Maple & Walnut Striped Board</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder img-charcuterie"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Charcuterie</div>
+        <div class="product-name">Live-Edge Walnut Serving Board</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <span class="about-visual-text">Craftsmanship</span>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="about-label">The Maker</div>
+      <h2 class="about-title">Built by Hand.<br>Driven by Grain.</h2>
+      <p class="about-text">Every custom piece starts the same way — a trip to <strong style="color:var(--text-primary);font-weight:500;">Owl Lumber in Des Plaines</strong>, where walnut, maple, and cherry slabs are hand-selected for grain, figure, and character. No two slabs are the same, which means no two pieces ever will be either.</p>
+      <p class="about-text">From there, each piece is shaped, sanded, and finished entirely by hand. When epoxy enters the picture, it's always in service of the wood — never the other way around.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Pieces Crafted</div>
+        </div>
+        <div>
+          <div class="stat-number">3</div>
+          <div class="stat-label">Wood Species</div>
+        </div>
+        <div>
+          <div class="stat-number">IL</div>
+          <div class="stat-label">Sourced Locally</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ── -->
+<section class="gallery" id="gallery">
+  <div class="section-header">
+    <span class="section-label">Portfolio</span>
+    <h2 class="section-title">From the Workshop</h2>
+    <p class="section-desc">A selection of past work — from epoxy river tables to hand-carved serving boards.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="gallery-img gi-1"></div>
+      <div class="gallery-item-label">Emerald River Board</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img gi-2"></div>
+      <div class="gallery-item-label">Craftsman's Detail</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img gi-3"></div>
+      <div class="gallery-item-label">Live-Edge Charcuterie</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img gi-4"></div>
+      <div class="gallery-item-label">Live Edge Wood Slab</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img gi-5"></div>
+      <div class="gallery-item-label">Walnut Oval Board</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img gi-6"></div>
+      <div class="gallery-item-label">Grey Tusk Brand Mark</div>
+    </div>
+  </div>
+
+  <!-- Video row -->
+  <div class="gallery-video-row">
+    <div class="gallery-video-item">
+      <video class="gallery-video" autoplay muted loop playsinline>
+        <source src="images/IMG_1965.MOV" type="video/quicktime">
+        <source src="images/IMG_1965.MOV" type="video/mp4">
+      </video>
+      <div class="gallery-item-label">In the Workshop</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Process ── -->
+<section class="process" id="process">
+  <div class="section-header">
+    <span class="section-label">How It's Made</span>
+    <h2 class="section-title">The Process</h2>
+    <p class="section-desc">From raw lumber to finished piece — every step done by hand.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <h3>Source</h3>
+      <p>Every piece begins at Owl Lumber in Des Plaines — walking the racks, reading the grain, and hand-picking a slab with the right character for your project.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <h3>Shape</h3>
+      <p>Milling, jointing, and shaping the wood using a combination of hand tools and CNC to bring precision to the natural form of each slab.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <h3>Pour & Fill</h3>
+      <p>For resin pieces, epoxy is carefully mixed, tinted, and poured — sometimes in multiple layers to achieve depth and clarity that complements the wood.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">04</div>
+      <h3>Finish</h3>
+      <p>Sanded through progressive grits, then sealed with food-safe finishes that protect the wood and bring out every detail in the grain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="testimonials">
+  <div class="section-header">
+    <span class="section-label">Kind Words</span>
+    <h2 class="section-title">What Clients Say</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="testimonial-container">
+    <div class="testimonial-quote">
+      The walnut charcuterie board is absolutely stunning. The handle detail and live edge are works of art. We use it every time we entertain.
+    </div>
+    <div class="testimonial-author">— Sarah M., Custom Order</div>
+    <div class="testimonial-dots">
+      <div class="testimonial-dot active"></div>
+      <div class="testimonial-dot"></div>
+      <div class="testimonial-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Shop ── -->
+<section class="shop" id="shop">
+  <div class="section-header">
+    <span class="section-label">Past Work</span>
+    <h2 class="section-title">Past Work & Inspiration</h2>
+    <p class="section-desc">Every piece here has been made before and can be commissioned again — in the same form or adapted to your vision.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="shop-grid">
+    <div class="shop-card">
+      <div class="shop-card-img img-river"></div>
+      <div class="shop-card-body">
+        <div class="shop-card-cat">Epoxy River</div>
+        <div class="shop-card-name">Walnut & Emerald River Board</div>
+        <div class="shop-card-desc">Live-edge walnut with deep emerald metallic epoxy. Approx. 18" x 12".</div>
+        <div class="shop-card-footer">
+          <button class="shop-card-btn inquire-btn" data-piece="Walnut & Emerald River Board">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-card-img img-cutting"></div>
+      <div class="shop-card-body">
+        <div class="shop-card-cat">Cutting Board</div>
+        <div class="shop-card-name">Maple & Walnut Striped Board</div>
+        <div class="shop-card-desc">Edge-grain construction with alternating maple and walnut. Approx. 20" x 14" x 1.5".</div>
+        <div class="shop-card-footer">
+          <button class="shop-card-btn inquire-btn" data-piece="Maple & Walnut Striped Board">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-card-img img-charcuterie"></div>
+      <div class="shop-card-body">
+        <div class="shop-card-cat">Charcuterie</div>
+        <div class="shop-card-name">Live-Edge Walnut Serving Board</div>
+        <div class="shop-card-desc">Single-slab walnut with carved handle and natural bark edge. Approx. 24" x 10".</div>
+        <div class="shop-card-footer">
+          <button class="shop-card-btn inquire-btn" data-piece="Live-Edge Walnut Serving Board">Inquire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Custom Order CTA ── -->
+<section class="custom-cta">
+  <div class="custom-cta-inner">
+    <span class="section-label">Bespoke Work</span>
+    <h2>Have Something Specific in Mind?</h2>
+    <p>From dimensions to wood species to epoxy colors — tell me your vision and I'll bring it to life. Custom orders typically take 2–4 weeks.</p>
+    <a href="#contact" class="btn btn-primary">Start a Custom Order</a>
+    <div class="slab-preview">
+      <div class="slab-preview-item" style="background-image:url('images/IMG_1793.jpeg')"></div>
+      <div class="slab-preview-item" style="background-image:url('images/river-board-2.jpg')"></div>
+      <div class="slab-preview-item" style="background-image:url('images/IMG_1856.jpeg'); background-position: center top;"></div>
+    </div>
+    <p class="slab-caption">Live-edge walnut slabs hand-selected at Owl Lumber, Des Plaines — available for custom commissions</p>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="contact" id="contact">
+  <div class="section-header">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-title">Let's Build Something</h2>
+    <p class="section-desc">Describe what you have in mind — the more detail the better. I'll follow up within 1–2 business days to discuss and quote.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Grey Tusk Studio</h3>
+      <p>Every piece is handcrafted with care. Reach out for custom orders, wholesale inquiries, or just to say hello.</p>
+
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <span>Email</span>
+          <a href="mailto:liamcglawson@gmail.com">liamcglawson@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <span>Instagram</span>
+          <a href="https://instagram.com/greytuskstudio" target="_blank">@greytuskstudio</a>
+        </div>
+      </div>
+
+      <div class="contact-social">
+        <a href="https://instagram.com/greytuskstudio" target="_blank" class="social-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Etsy">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4h8v2H8z"/><path d="M8 10h6v2H8z"/><path d="M8 16h8v2H8z"/><rect x="4" y="2" width="16" height="20" rx="2"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! (This is a mockup)');">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Inquiry Type</label>
+        <select id="inquiryType">
+          <option>Commission a Piece</option>
+          <option>Question About Past Work</option>
+          <option>Wholesale Inquiry</option>
+          <option>General Question</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Wood Species</label>
+          <select>
+            <option value="">No preference / open to suggestions</option>
+            <option>Walnut</option>
+            <option>Maple</option>
+            <option>Cherry</option>
+            <option>Mixed / Striped</option>
+            <option>Other (describe below)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Budget Range</label>
+          <select>
+            <option value="">Prefer not to say</option>
+            <option>Under $200</option>
+            <option>$200 – $400</option>
+            <option>$400 – $700</option>
+            <option>$700+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Approximate Dimensions</label>
+          <input type="text" placeholder='e.g. 24" x 12", or "not sure yet"'>
+        </div>
+        <div class="form-group">
+          <label>Timeline</label>
+          <select>
+            <option value="">Flexible</option>
+            <option>Within 2 weeks</option>
+            <option>Within a month</option>
+            <option>1–3 months</option>
+            <option>No rush</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Project Description</label>
+        <textarea id="messageField" placeholder="Describe what you have in mind — piece type, intended use, any epoxy color preferences, inspiration images, or anything else that helps paint the picture..." style="min-height:150px;"></textarea>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:-0.5rem;">Custom pieces require a 50% deposit to begin. Typical lead time is 2–4 weeks after deposit.</p>
+      <button type="submit" class="form-submit">Send Inquiry</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── How to Commission ── -->
+<section class="commission" id="commission">
+  <div class="section-header">
+    <span class="section-label">The Process</span>
+    <h2 class="section-title">How to Commission a Piece</h2>
+    <p class="section-desc">Simple, personal, and built around your vision.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="commission-grid">
+    <div class="commission-step">
+      <div class="commission-num">01</div>
+      <h3>Reach Out</h3>
+      <p>Fill out the inquiry form below with as much or as little detail as you have. Not sure what you want yet? That's fine — we'll figure it out together.</p>
+    </div>
+    <div class="commission-step">
+      <div class="commission-num">02</div>
+      <h3>Discuss & Quote</h3>
+      <p>I'll follow up within 1–2 business days to talk through dimensions, wood species, epoxy options, and timeline. You'll receive a clear quote before anything moves forward.</p>
+    </div>
+    <div class="commission-step">
+      <div class="commission-num">03</div>
+      <h3>50% Deposit</h3>
+      <p>Once we've agreed on the details, a 50% deposit secures your spot. Wood is hand-selected at Owl Lumber and work begins shortly after.</p>
+    </div>
+    <div class="commission-step">
+      <div class="commission-num">04</div>
+      <h3>Built & Delivered</h3>
+      <p>Your piece is built, finished, and photographed before shipping. The remaining 50% is collected at completion. Typical lead time is 2–4 weeks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq" id="faq">
+  <div class="section-header">
+    <span class="section-label">Questions</span>
+    <h2 class="section-title">Frequently Asked</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        What wood species do you work with?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Primarily walnut, maple, and cherry — all sourced from Owl Lumber in Des Plaines, IL. Each slab is hand-selected for grain, figure, and character. If you have a specific species in mind, mention it in your inquiry and I'll let you know what's available.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        How do I care for my board?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Hand wash with mild soap and warm water — never the dishwasher. Dry thoroughly after washing. Re-oil every few months with food-safe mineral oil or butcher block conditioner to keep the wood hydrated and protected.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Is the epoxy food-safe?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Yes. All epoxy used is food-safe once fully cured, which takes approximately 30 days. Boards are not shipped until the epoxy has fully cured. Avoid cutting directly on the resin portion — it's decorative and durable, but a wood cutting surface is always preferable for knife work.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        What is a live-edge piece?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Live-edge refers to keeping the natural outer edge of the wood slab — the organic, uneven boundary where the tree's bark once was. No two live edges are the same, which is what makes each piece truly one of a kind.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Do you ship?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Yes, shipping is available across the US. Pieces are carefully packed to prevent damage in transit. Shipping cost is calculated based on size and destination and included in your final quote. Local pickup in the Chicago area is also available.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Can I be involved in the wood selection?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Absolutely. If you'd like to come to Owl Lumber in Des Plaines to hand-pick your own slab, just mention it in your inquiry and we can coordinate. There's something special about choosing the exact piece of wood your board will come from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:0;">
+        <img src="images/GTSLogo.png" alt="Grey Tusk Studio">
+        <span class="nav-logo-text">Grey Tusk Studio</span>
+      </a>
+      <p>Handcrafted cutting boards, charcuterie boards, and epoxy river pieces. Every piece made with intention.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Work</h4>
+      <a href="#featured">Portfolio</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#shop">Past Work</a>
+      <a href="#contact">Commission a Piece</a>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#commission">How to Order</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com/greytuskstudio" target="_blank">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">YouTube</a>
+      <a href="#">Etsy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Grey Tusk Studio. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Shipping & Returns</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll-based nav styling
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.product-card, .shop-card, .gallery-item, .process-step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)';
+  observer.observe(el);
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.faq-question').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!expanded) {
+      btn.setAttribute('aria-expanded', 'true');
+      btn.nextElementSibling.classList.add('open');
+    }
+  });
+});
+
+// Inquire buttons pre-fill contact form
+document.querySelectorAll('.inquire-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const piece = btn.getAttribute('data-piece');
+    const msg = document.getElementById('messageField');
+    if (msg) msg.value = `I'm interested in commissioning a piece similar to the ${piece}. `;
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (msg) setTimeout(() => msg.focus(), 800);
+  });
+});
+
+// Testimonial rotation
+const quotes = [
+  { text: 'The walnut charcuterie board is absolutely stunning. The handle detail and live edge are works of art. We use it every time we entertain.', author: '— Sarah M., Custom Order' },
+  { text: 'I ordered a custom epoxy river board as a wedding gift. The craftsmanship blew everyone away. It was the hit of the reception.', author: '— David R., Wedding Gift' },
+  { text: 'The striped cutting board is the most beautiful kitchen item I own. Heavy, solid, and the walnut and maple pattern is mesmerizing.', author: '— Amy T., Repeat Customer' }
+];
+let currentQuote = 0;
+const quoteEl = document.querySelector('.testimonial-quote');
+const authorEl = document.querySelector('.testimonial-author');
+const dots = document.querySelectorAll('.testimonial-dot');
+
+function showQuote(index) {
+  quoteEl.style.opacity = '0';
+  authorEl.style.opacity = '0';
+  setTimeout(() => {
+    quoteEl.textContent = quotes[index].text;
+    authorEl.textContent = quotes[index].author;
+    quoteEl.style.opacity = '1';
+    authorEl.style.opacity = '1';
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }, 300);
+}
+
+quoteEl.style.transition = 'opacity 0.3s';
+authorEl.style.transition = 'opacity 0.3s';
+
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => { currentQuote = i; showQuote(i); });
+});
+
+setInterval(() => {
+  currentQuote = (currentQuote + 1) % quotes.length;
+  showQuote(currentQuote);
+}, 6000);
+</script>
+
+</body>
+</html>
