@@ -122,7 +122,7 @@ body {
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: var(--bg-primary);
+  background: var(--bg-primary) url('images/IMG_1996.jpeg') center/cover no-repeat;
 }
 .hero-bg::before {
   content: '';
@@ -262,7 +262,7 @@ section { padding: 7rem 3rem; }
   background-position: center;
 }
 .img-cutting {
-  background-image: url('images/IMG_1969.jpeg');
+  background-image: url('images/Striped Cutting Board.png');
   background-size: cover;
   background-position: center top;
 }
@@ -404,13 +404,8 @@ section { padding: 7rem 3rem; }
   background-size: cover;
   background-position: center top;
 }
-.gi-4 {
-  background-image: url('images/IMG_1683.jpeg');
-  background-size: cover;
-  background-position: center;
-}
 .gi-5 {
-  background-image: url('images/IMG_1857.jpeg');
+  background-image: url('images/IMG_1999.jpeg');
   background-size: cover;
   background-position: center top;
 }
@@ -581,7 +576,7 @@ section { padding: 7rem 3rem; }
   line-height: 1.7; font-weight: 300;
 }
 .slab-preview {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem; margin-top: 2.5rem;
 }
 .slab-preview-item {
@@ -856,7 +851,7 @@ section { padding: 7rem 3rem; }
 <!-- ── Navigation ── -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <img src="images/GTSLogo.png" alt="Grey Tusk Studio">
+    <img src="images/logo.png" alt="Grey Tusk Studio">
     <span class="nav-logo-text">Grey Tusk Studio</span>
   </a>
   <ul class="nav-links" id="navLinks">
@@ -878,7 +873,7 @@ section { padding: 7rem 3rem; }
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-badge">Handcrafted in the USA</div>
+    <div class="hero-badge">Chicago, IL</div>
     <h1>Where Wood Meets <em>Art</em></h1>
     <p class="hero-sub">One-of-a-kind cutting boards, charcuterie boards, and epoxy river pieces — each crafted by hand from responsibly sourced hardwoods.</p>
     <div class="hero-buttons">
@@ -941,7 +936,7 @@ section { padding: 7rem 3rem; }
 <section class="about" id="about">
   <div class="about-grid">
     <div class="about-visual">
-      <div class="about-visual-inner">
+      <div class="about-visual-inner" style="background-image:url('images/IMG_1997.jpeg');">
         <span class="about-visual-text">Craftsmanship</span>
       </div>
     </div>
@@ -991,16 +986,28 @@ section { padding: 7rem 3rem; }
       <div class="gallery-item-label">Live-Edge Charcuterie</div>
     </div>
     <div class="gallery-item">
-      <div class="gallery-img gi-4"></div>
-      <div class="gallery-item-label">Live Edge Wood Slab</div>
-    </div>
-    <div class="gallery-item">
       <div class="gallery-img gi-5"></div>
       <div class="gallery-item-label">Walnut Oval Board</div>
     </div>
     <div class="gallery-item">
       <div class="gallery-img gi-6"></div>
       <div class="gallery-item-label">Grey Tusk Brand Mark</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img" style="background-image:url('images/IMG_1989.jpeg'); background-position:center;"></div>
+      <div class="gallery-item-label">Workshop Detail</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img" style="background-image:url('images/IMG_1990.jpeg'); background-position:center;"></div>
+      <div class="gallery-item-label">Walnut Slab Surface</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img" style="background-image:url('images/IMG_2008.jpeg'); background-position:center;"></div>
+      <div class="gallery-item-label">Sand & Resin Prep</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img" style="background-image:url('images/IMG_2010.jpeg'); background-position:center;"></div>
+      <div class="gallery-item-label">Live Edge Handle</div>
     </div>
   </div>
 
@@ -1127,7 +1134,8 @@ section { padding: 7rem 3rem; }
     <div class="slab-preview">
       <div class="slab-preview-item" style="background-image:url('images/IMG_1793.jpeg')"></div>
       <div class="slab-preview-item" style="background-image:url('images/river-board-2.jpg')"></div>
-      <div class="slab-preview-item" style="background-image:url('images/IMG_1856.jpeg'); background-position: center top;"></div>
+      <div class="slab-preview-item" style="background-image:url('images/IMG_1856 2.jpeg'); background-position: center top;"></div>
+      <div class="slab-preview-item" style="background-image:url('images/IMG_1996.jpeg'); background-position: center;"></div>
     </div>
     <p class="slab-caption">Live-edge walnut slabs hand-selected at Owl Lumber, Des Plaines — available for custom commissions</p>
   </div>
@@ -1354,7 +1362,7 @@ section { padding: 7rem 3rem; }
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="#" class="nav-logo" style="margin-bottom:0;">
-        <img src="images/GTSLogo.png" alt="Grey Tusk Studio">
+        <img src="images/logo.png" alt="Grey Tusk Studio">
         <span class="nav-logo-text">Grey Tusk Studio</span>
       </a>
       <p>Handcrafted cutting boards, charcuterie boards, and epoxy river pieces. Every piece made with intention.</p>
